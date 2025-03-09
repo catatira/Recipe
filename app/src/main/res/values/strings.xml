@@ -3,4 +3,8 @@
 
     <string name="home_input_text_placeholder">What do you feel like eating?</string>
     <string name="home_favorites_header">Favorites</string>
+    <string name="home_suggested_recipes_header">Suggested Recipes</string>
+    <string name="home_refresh_suggestions_button_text">I don\'t like these</string>
+    <string name="home_error_header">Something went wrong</string>
+    <string name="home_error_description">Please try again later</string>
 </resources>
