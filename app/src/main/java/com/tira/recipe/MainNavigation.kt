@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.tira.recipe.home.ui.HomeScreenDestinationRoute
 import com.tira.recipe.home.ui.homeDestination
+import com.tira.recipe.recipe_details.navigateToRecipeDetails
 import com.tira.recipe.recipe_details.recipeDetailsDestination
 
 @Composable
@@ -17,7 +18,11 @@ fun MainNavigation(modifier: Modifier = Modifier) {
         navController = navController,
         startDestination = HomeScreenDestinationRoute,
     ) {
-        homeDestination()
-        recipeDetailsDestination()
+        homeDestination(
+            onSelectRecipe = navController::navigateToRecipeDetails,
+        )
+        recipeDetailsDestination(
+            onBackPress = { navController.popBackStack() },
+        )
     }
 }

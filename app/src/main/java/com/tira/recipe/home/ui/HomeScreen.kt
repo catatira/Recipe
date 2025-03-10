@@ -39,6 +39,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel<HomeViewModel>(),
+    onSelectRecipe: () -> Unit,
 ) {
     val homeState by viewModel.homeState.collectAsStateWithLifecycle()
     val isSuggestingRecipes: State<Boolean> = remember(homeState) {
@@ -48,7 +49,7 @@ fun HomeScreen(
     }
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         floatingActionButton = {
             if (isSuggestingRecipes.value) {
             Button(

@@ -70,6 +70,7 @@ fun RecipeCard(
 @Composable
 private fun RecipeCardPreview() {
     PreviewWrapper {
-        RecipeCard(Recipe("Recipe 1", "", isFavorited = true, duration = "20 min."))
+        RecipeCard(Recipe(title = "Recipe 1", isFavorited = true, duration = "20 min.",
+            ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")))
     }
 }

@@ -49,8 +49,8 @@ private fun RecipeListWithHeaderPreview() {
 
 fun generatePreviewRecipeList() = // TODO Make it private
     listOf(
-        Recipe("Recipe 1", "", isFavorited = true, duration = "20 min."),
-        Recipe("Recipe 2", "", isFavorited = true, duration = "20 min."),
-        Recipe("Recipe 3", "", isFavorited = true, duration = "20 min."),
-        Recipe("Recipe 4", "", isFavorited = true, duration = "20 min."),
+        Recipe("Recipe 1", isFavorited = true, duration = "20 min.", ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")),
+        Recipe("Recipe 2", isFavorited = true, duration = "20 min.", ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")),
+        Recipe("Recipe 3", isFavorited = true, duration = "20 min.", ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")),
+        Recipe("Recipe 4", isFavorited = true, duration = "20 min.", ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")),
     )

@@ -2,7 +2,6 @@ package com.tira.recipe.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,16 +29,7 @@ class HomeViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            delay(3_000L)
-            _homeState.value = HomeState.Cleared
-            delay(3_000L)
-            _homeState.value = HomeState.Loading
-            delay(3_000L)
             _homeState.value = HomeState.SearchResults
-            delay(3_000L)
-            _homeState.value = HomeState.Loading
-            delay(3_000L)
-            _homeState.value = HomeState.Error
         }
     }
 

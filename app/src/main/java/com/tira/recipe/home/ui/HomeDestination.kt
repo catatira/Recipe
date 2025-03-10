@@ -6,8 +6,12 @@ import androidx.navigation.compose.composable
 
 const val HomeScreenDestinationRoute = "home"
 
-fun NavGraphBuilder.homeDestination() {
+fun NavGraphBuilder.homeDestination(
+    onSelectRecipe: () -> Unit,
+) {
     composable(route = HomeScreenDestinationRoute) {
-        HomeScreen()
+        HomeScreen(
+            onSelectRecipe = onSelectRecipe,
+        )
     }
 }

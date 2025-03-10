@@ -7,4 +7,7 @@
     <string name="home_refresh_suggestions_button_text">I don\'t like these</string>
     <string name="home_error_header">Something went wrong</string>
     <string name="home_error_description">Please try again later</string>
+
+    <string name="recipe_description_ingredients_header">Ingredients:</string>
+    <string name="recipe_description_instructions_header">Instructions:</string>
 </resources>

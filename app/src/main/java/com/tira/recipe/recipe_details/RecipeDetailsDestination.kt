@@ -1,12 +1,21 @@
 package com.tira.recipe.recipe_details
 
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 const val RecipeDetailsDestinationRoute = "recipe-details"
 
-fun NavGraphBuilder.recipeDetailsDestination() {
+fun NavController.navigateToRecipeDetails() {
+    navigate(RecipeDetailsDestinationRoute)
+}
+
+fun NavGraphBuilder.recipeDetailsDestination(
+    onBackPress: () -> Unit,
+) {
     composable(route = RecipeDetailsDestinationRoute) {
-        RecipeDetailsScreen()
+        RecipeDetailsScreen(
+            onBackPress = onBackPress,
+        )
     }
 }

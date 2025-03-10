@@ -12,4 +12,6 @@ object Dimensions {
     val iconSizeLarge = 24.dp
 
     val generalCardDimension = 100.dp
+
+    val genericPresentationImageHeight = 250.dp
 }
