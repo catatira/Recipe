@@ -2,6 +2,9 @@ package com.tira.recipe.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tira.recipe.common.di.DispatcherProvider
+import com.tira.recipe.data.repository.OpenAiRecipeRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,8 +17,10 @@ sealed class HomeState {
     data object Error : HomeState()
 }
 
-// TODO Inject dispatchers
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val dispatchersProvider: DispatcherProvider,
+    private val openAiRecipeRepository: OpenAiRecipeRepository,
+) : ViewModel() {
 
     private val _inputText = MutableStateFlow("")
     val inputText: StateFlow<String> = _inputText.asStateFlow()
@@ -24,24 +29,34 @@ class HomeViewModel : ViewModel() {
     val homeState: StateFlow<HomeState> = _homeState.asStateFlow()
 
     fun onInputTextChange(newText: String) {
-        _inputText.value = newText
-    }
-
-    init {
-        viewModelScope.launch {
-            _homeState.value = HomeState.SearchResults
+        viewModelScope.launch(dispatchersProvider.main()) {
+            _inputText.emit(newText)
         }
     }
 
     fun onSearchRecipe() {
-
+        viewModelScope.launch(dispatchersProvider.main()) {
+            _homeState.emit(HomeState.Loading)
+            val response = openAiRecipeRepository.generateRecipes(_inputText.value)
+            _homeState.emit(HomeState.SearchResults)
+        }
     }
 
     fun clearState() {
-
+        viewModelScope.launch(dispatchersProvider.main()) {
+            // Pretend to clear state and reload data
+            _homeState.emit(HomeState.Loading)
+            _inputText.emit("")
+            delay(750)
+            _homeState.emit(HomeState.Cleared)
+        }
     }
 
-    fun regenerateSuggestedRecipes() {
-
+    fun refreshSuggestedRecipes() {
+        viewModelScope.launch(dispatchersProvider.main()) {
+            _homeState.emit(HomeState.Loading)
+            val response = openAiRecipeRepository.generateRecipes(_inputText.value)
+            _homeState.emit(HomeState.SearchResults)
+        }
     }
 }

@@ -1,9 +1,12 @@
-package com.tira.recipe.home.ui
+package com.tira.recipe.home.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.tira.recipe.R
+import com.tira.recipe.home.ui.HomeState
+import com.tira.recipe.home.ui.screens.ErrorScreen
+import com.tira.recipe.home.ui.screens.LoadingScreen
 
 @Composable
 fun HomeContent(

@@ -1,4 +1,4 @@
-package com.tira.recipe.home.ui
+package com.tira.recipe.home.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +30,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tira.recipe.R
+import com.tira.recipe.home.ui.components.HomeContent
+import com.tira.recipe.home.ui.HomeState
+import com.tira.recipe.home.ui.HomeViewModel
 import com.tira.recipe.ui.theme.Dimensions.paddingExtraSmall
 import com.tira.recipe.ui.theme.Dimensions.paddingSmall
 import com.tira.recipe.ui.theme.Dimensions.tvCornerShape
@@ -53,7 +56,7 @@ fun HomeScreen(
         floatingActionButton = {
             if (isSuggestingRecipes.value) {
             Button(
-                onClick = viewModel::regenerateSuggestedRecipes,
+                onClick = viewModel::refreshSuggestedRecipes,
                 shape = RoundedCornerShape(paddingExtraSmall),
             ) {
                 Text(

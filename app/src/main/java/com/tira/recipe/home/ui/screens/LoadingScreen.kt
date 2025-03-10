@@ -1,4 +1,4 @@
-package com.tira.recipe.home.ui
+package com.tira.recipe.home.ui.screens
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween

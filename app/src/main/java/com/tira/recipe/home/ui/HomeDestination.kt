@@ -2,6 +2,7 @@ package com.tira.recipe.home.ui
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.tira.recipe.home.ui.screens.HomeScreen
 
 
 const val HomeScreenDestinationRoute = "home"

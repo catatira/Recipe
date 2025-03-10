@@ -1,4 +1,4 @@
-package com.tira.recipe.home.ui
+package com.tira.recipe.home.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
