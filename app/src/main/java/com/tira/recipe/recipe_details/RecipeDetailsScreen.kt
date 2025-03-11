@@ -18,12 +18,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tira.recipe.R
 import com.tira.recipe.common.model.Recipe
 import com.tira.recipe.ui.components.FavoriteHeart
@@ -31,12 +33,12 @@ import com.tira.recipe.ui.components.OrderedList
 import com.tira.recipe.ui.components.UnorderedList
 import com.tira.recipe.ui.theme.Dimensions.genericPresentationImageHeight
 import com.tira.recipe.ui.theme.Dimensions.paddingSmall
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RecipeDetailsScreen(
-    recipe: Recipe,
     modifier: Modifier = Modifier,
-    onFavoriteClick: (Recipe) -> Unit = { }, // TODO
+    viewModel: RecipeDetailsViewModel = koinViewModel(),
     onBackPress: () -> Unit = { },
 ) {
     Scaffold(
@@ -47,8 +49,10 @@ fun RecipeDetailsScreen(
                 .fillMaxSize()
                 .padding(contentPadding),
         ) {
+            val recipe by viewModel.recipeFlow.collectAsStateWithLifecycle()
+
             RecipeDetailsHeader(onBackPress = onBackPress)
-            RecipeDetailsTitleSection(recipe = recipe, onFavoriteClick = { onFavoriteClick(recipe) })
+            RecipeDetailsTitleSection(recipe = recipe, onFavoriteClick = viewModel::onToggleRecipeFavorite)
             RecipeDetailsInstructionsSection(recipe = recipe)
         }
     }

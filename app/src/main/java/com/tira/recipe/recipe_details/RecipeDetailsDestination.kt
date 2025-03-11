@@ -7,6 +7,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.tira.recipe.common.model.Recipe
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 private const val RecipeDetailBaseRoute = "recipe-details"
 const val RecipeDetailsDestinationRoute = "$RecipeDetailBaseRoute/{recipe}"
@@ -26,9 +28,10 @@ fun NavGraphBuilder.recipeDetailsDestination(
     ) { backStackEntry ->
         val encodedRecipe = backStackEntry.arguments?.getString(RecipeArg) ?: ""
         val recipe = Gson().fromJson(encodedRecipe, Recipe::class.java)
+        val viewModel = koinViewModel<RecipeDetailsViewModel>(parameters = { parametersOf(recipe) })
 
         RecipeDetailsScreen(
-            recipe = recipe,
+            viewModel = viewModel,
             onBackPress = onBackPress,
         )
     }
