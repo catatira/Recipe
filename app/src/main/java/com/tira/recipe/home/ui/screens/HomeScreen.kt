@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tira.recipe.R
+import com.tira.recipe.common.model.Recipe
 import com.tira.recipe.home.ui.components.HomeContent
 import com.tira.recipe.home.ui.HomeState
 import com.tira.recipe.home.ui.HomeViewModel
@@ -42,7 +43,7 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel<HomeViewModel>(),
-    onSelectRecipe: () -> Unit,
+    onSelectRecipe: (Recipe) -> Unit,
 ) {
     val homeState by viewModel.homeState.collectAsStateWithLifecycle()
     val isSuggestingRecipes: State<Boolean> = remember(homeState) {
@@ -55,19 +56,19 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize(),
         floatingActionButton = {
             if (isSuggestingRecipes.value) {
-            Button(
-                onClick = viewModel::refreshSuggestedRecipes,
-                shape = RoundedCornerShape(paddingExtraSmall),
-            ) {
-                Text(
-                    text = stringResource(R.string.home_refresh_suggestions_button_text),
-                    modifier = Modifier.padding(
-                        horizontal = paddingSmall,
-                        vertical = paddingExtraSmall,
-                    ),
-                )
-            }
+                Button(
+                    onClick = viewModel::refreshSuggestedRecipes,
+                    shape = RoundedCornerShape(paddingExtraSmall),
+                ) {
+                    Text(
+                        text = stringResource(R.string.home_refresh_suggestions_button_text),
+                        modifier = Modifier.padding(
+                            horizontal = paddingSmall,
+                            vertical = paddingExtraSmall,
+                        ),
+                    )
                 }
+            }
         },
         floatingActionButtonPosition = FabPosition.Center,
     ) { contentPadding ->
@@ -114,7 +115,11 @@ fun HomeScreen(
                 ),
             )
 
-            HomeContent(homeState)
+            HomeContent(
+                homeUiState = homeState,
+                onSelectRecipe = onSelectRecipe,
+                onFavoriteRecipe = viewModel::toggleRecipeFavoriteSelection,
+            )
         }
     }
 }

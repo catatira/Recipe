@@ -1,6 +1,7 @@
 package com.tira.recipe.home.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,11 +33,14 @@ import com.tira.recipe.util.PreviewWrapper
 fun RecipeCard(
     recipe: Recipe,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    onHeartClick: () -> Unit,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(generalCardDimension),
+            .height(generalCardDimension)
+            .clickable(onClick = onClick),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
     ) {
@@ -61,6 +65,7 @@ fun RecipeCard(
             FavoriteHeart(
                 modifier = Modifier.padding(horizontal = paddingSmall),
                 isSelected = recipe.isFavorited,
+                onClick = onHeartClick,
             )
         }
     }
@@ -70,7 +75,8 @@ fun RecipeCard(
 @Composable
 private fun RecipeCardPreview() {
     PreviewWrapper {
-        RecipeCard(Recipe(title = "Recipe 1", isFavorited = true, duration = "20 min.",
-            ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")))
+        RecipeCard(recipe = Recipe(title = "Recipe 1", isFavorited = true, duration = "20 min.",
+            ingredients = listOf("Ingredient 1", "Ingredient 2"), instructions = listOf("Instruction 1", "Instruction 2")),
+            onClick = { }, onHeartClick = { },)
     }
 }

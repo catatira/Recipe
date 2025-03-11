@@ -19,6 +19,8 @@ fun RecipeListWithHeader(
     recipeList: List<Recipe>,
     headerText: String,
     modifier: Modifier = Modifier,
+    onRecipeClick: (Recipe) -> Unit,
+    onFavoriteRecipe: (Recipe) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -32,6 +34,8 @@ fun RecipeListWithHeader(
                 RecipeCard(
                     recipe = recipe,
                     modifier = Modifier.padding(vertical = paddingSmall),
+                    onClick = { onRecipeClick(recipe) },
+                    onHeartClick = { onFavoriteRecipe(recipe) }
                 )
             }
         }
@@ -43,7 +47,7 @@ fun RecipeListWithHeader(
 private fun RecipeListWithHeaderPreview() {
     val recipeList = generatePreviewRecipeList()
     PreviewWrapper {
-        RecipeListWithHeader(recipeList = recipeList, headerText = "Favorites")
+        RecipeListWithHeader(recipeList = recipeList, headerText = "Favorites", onRecipeClick = { }, onFavoriteRecipe = { }, )
     }
 }
 

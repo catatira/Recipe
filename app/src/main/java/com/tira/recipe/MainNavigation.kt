@@ -1,5 +1,6 @@
 package com.tira.recipe
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -14,7 +15,7 @@ fun MainNavigation(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     NavHost(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         navController = navController,
         startDestination = HomeScreenDestinationRoute,
     ) {

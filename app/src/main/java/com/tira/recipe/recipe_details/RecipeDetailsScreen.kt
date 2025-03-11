@@ -34,11 +34,11 @@ import com.tira.recipe.ui.theme.Dimensions.paddingSmall
 
 @Composable
 fun RecipeDetailsScreen(
+    recipe: Recipe,
     modifier: Modifier = Modifier,
-    onBackPress: () -> Unit,
+    onFavoriteClick: (Recipe) -> Unit = { }, // TODO
+    onBackPress: () -> Unit = { },
 ) {
-    val selectedRecipe = Recipe(title = "Mashed Potatoes", isFavorited = false, duration = "10 min.", ingredients = listOf("Potatoes", "Water"), instructions = listOf("Mash a lot of potatoes. So many potatoes that the line will break, allowing us to see how it works. Hopefully it keeps the alignment as expected.", "Fry")) // TODO
-
     Scaffold(
         modifier = modifier,
     ) { contentPadding ->
@@ -48,8 +48,8 @@ fun RecipeDetailsScreen(
                 .padding(contentPadding),
         ) {
             RecipeDetailsHeader(onBackPress = onBackPress)
-            RecipeDetailsTitleSection(recipe = selectedRecipe)
-            RecipeDetailsInstructionsSection(recipe = selectedRecipe)
+            RecipeDetailsTitleSection(recipe = recipe, onFavoriteClick = { onFavoriteClick(recipe) })
+            RecipeDetailsInstructionsSection(recipe = recipe)
         }
     }
 }
@@ -78,7 +78,10 @@ private fun RecipeDetailsHeader(
 }
 
 @Composable
-private fun RecipeDetailsTitleSection(recipe: Recipe) {
+private fun RecipeDetailsTitleSection(
+    recipe: Recipe,
+    onFavoriteClick: () -> Unit,
+) {
     Row(modifier = Modifier.padding(paddingSmall + paddingSmall)) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
@@ -90,7 +93,10 @@ private fun RecipeDetailsTitleSection(recipe: Recipe) {
                 text = recipe.duration,
             )
         }
-        FavoriteHeart(isSelected = recipe.isFavorited)
+        FavoriteHeart(
+            isSelected = recipe.isFavorited,
+            onClick = onFavoriteClick,
+        )
     }
 }
 
